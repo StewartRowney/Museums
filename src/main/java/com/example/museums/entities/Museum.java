@@ -27,21 +27,4 @@ public class Museum {
         this.name = name;
         this.exhibits = new ArrayList<>();
     }
-
-    public UUID getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public List<Exhibit> getExhibits() {
-        return exhibits;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setExhibits(List<Exhibit> exhibits) {
-        this.exhibits = exhibits;
-    }
 }

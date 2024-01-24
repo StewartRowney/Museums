@@ -35,32 +35,4 @@ public class Exhibit {
         this.artifacts = new ArrayList<>();
     }
 
-    public UUID getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public Museum getMuseum() {
-        return museum;
-    }
-    public List<Artifact> getArtifacts() {
-        return artifacts;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setMuseum(Museum museum) {
-        this.museum = museum;
-    }
-    public void setArtifacts(List<Artifact> artifacts) {
-        this.artifacts = artifacts;
-    }
 }

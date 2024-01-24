@@ -29,27 +29,4 @@ public class Artifact {
         this.description = description;
         this.exhibit = exhibit;
     }
-
-    public UUID getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public Exhibit getExhibit() {
-        return exhibit;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public void setExhibit(Exhibit exhibit) {
-        this.exhibit = exhibit;
-    }
 }
