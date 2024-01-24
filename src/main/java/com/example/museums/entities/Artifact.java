@@ -1,6 +1,9 @@
 package com.example.museums.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
@@ -8,8 +11,10 @@ import java.util.UUID;
 public class Artifact {
 
     @Id
-    @GeneratedValue
-    @Column(insertable=false, updatable=false)
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "id",insertable=false, updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
     private String name;
     private String description;
@@ -18,7 +23,6 @@ public class Artifact {
     private Exhibit exhibit;
 
     public Artifact() {
-
     }
     public Artifact(String name, String description) {
         this.name = name;
