@@ -11,15 +11,23 @@ public class Exhibit {
 
     @Id
     @GeneratedValue
+    @Column(insertable=false, updatable=false)
     private UUID id;
     private String name;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Museum museum;
     @OneToMany(mappedBy = "exhibit", cascade = CascadeType.ALL)
     List<Artifact> artifacts;
 
-    public Exhibit(String name, String description) {
+    public Exhibit() {
+
+    }
+    public Exhibit(String name, String description, Museum museum) {
         this.name = name;
         this.description = description;
+        this.museum = museum;
         this.artifacts = new ArrayList<>();
     }
 
@@ -32,6 +40,9 @@ public class Exhibit {
     public String getDescription() {
         return description;
     }
+    public Museum getMuseum() {
+        return museum;
+    }
     public List<Artifact> getArtifacts() {
         return artifacts;
     }
@@ -41,6 +52,9 @@ public class Exhibit {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public void setMuseum(Museum museum) {
+        this.museum = museum;
     }
     public void setArtifacts(List<Artifact> artifacts) {
         this.artifacts = artifacts;

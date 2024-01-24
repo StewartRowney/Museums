@@ -9,18 +9,20 @@ public class Artifact {
 
     @Id
     @GeneratedValue
+    @Column(insertable=false, updatable=false)
     private UUID id;
     private String name;
     private String description;
-    private Location locationFound;
     @ManyToOne
     @JoinColumn(name = "id")
     private Exhibit exhibit;
 
-    public Artifact(String name, String description, Location locationFound) {
+    public Artifact() {
+
+    }
+    public Artifact(String name, String description) {
         this.name = name;
         this.description = description;
-        this.locationFound = locationFound;
     }
 
     public UUID getId() {
@@ -32,9 +34,6 @@ public class Artifact {
     public String getDescription() {
         return description;
     }
-    public Location getLocationFound() {
-        return locationFound;
-    }
     public Exhibit getExhibit() {
         return exhibit;
     }
@@ -44,9 +43,6 @@ public class Artifact {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-    public void setLocationFound(Location locationFound) {
-        this.locationFound = locationFound;
     }
     public void setExhibit(Exhibit exhibit) {
         this.exhibit = exhibit;
