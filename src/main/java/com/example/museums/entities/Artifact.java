@@ -19,14 +19,15 @@ public class Artifact {
     private String name;
     private String description;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "exhibit_id")
     private Exhibit exhibit;
 
     public Artifact() {
     }
-    public Artifact(String name, String description) {
+    public Artifact(String name, String description, Exhibit exhibit) {
         this.name = name;
         this.description = description;
+        this.exhibit = exhibit;
     }
 
     public UUID getId() {

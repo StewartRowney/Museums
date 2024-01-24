@@ -1,7 +1,9 @@
 package com.example.museums;
 
+import com.example.museums.entities.Artifact;
 import com.example.museums.entities.Exhibit;
 import com.example.museums.entities.Museum;
+import com.example.museums.service.IArtifactService;
 import com.example.museums.service.IExhibitService;
 import com.example.museums.service.IMuseumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,14 @@ public class Populator {
 
     private final IMuseumService museumService;
     private final IExhibitService exhibitService;
+    private final IArtifactService artifactService;
     private final Random rand = new Random();
 
     @Autowired
-    public Populator(IMuseumService museumService, IExhibitService exhibitService) {
+    public Populator(IMuseumService museumService, IExhibitService exhibitService, IArtifactService artifactService) {
         this.museumService = museumService;
         this.exhibitService = exhibitService;
+        this.artifactService = artifactService;
     }
 
     @EventListener(ContextRefreshedEvent.class)
@@ -34,6 +38,7 @@ public class Populator {
 
         List<Museum> museums = populateMuseum();
         List<Exhibit> exhibits = populateExhibit(museums);
+        populateArtifacts(exhibits);
     }
 
     private List<Museum> populateMuseum() {
@@ -56,8 +61,8 @@ public class Populator {
     private List<Exhibit> populateExhibit(List<Museum> museums) {
         List<Exhibit> exhibits = new ArrayList<>();
 
-        String museumsFile = "src/main/resources/data/exhibits.csv";
-        try (BufferedReader reader = new BufferedReader(new FileReader(museumsFile))) {
+        String exhibitsFile = "src/main/resources/data/exhibits.csv";
+        try (BufferedReader reader = new BufferedReader(new FileReader(exhibitsFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
@@ -71,5 +76,22 @@ public class Populator {
             e.printStackTrace();
         }
         return exhibits;
+    }
+
+    private void populateArtifacts(List<Exhibit> exhibits) {
+
+        String artifactsFile = "src/main/resources/data/artifacts.csv";
+        try (BufferedReader reader = new BufferedReader(new FileReader(artifactsFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Exhibit randomExhibit = exhibits.get(rand.nextInt(exhibits.size()));
+
+                Artifact artifact = new Artifact(values[0], values[1], randomExhibit);
+                artifactService.save(artifact);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
